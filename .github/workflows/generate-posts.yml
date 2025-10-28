@@ -18,61 +18,67 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Generate posts.json
         run: |
-          echo "Generating posts.json from pages folder..."
+          node << 'SCRIPT'
+          const fs = require('fs');
+          const path = require('path');
           
-          # JSON 배열 시작
-          echo "[" > posts.json
+          console.log('Generating posts.json from pages folder...');
           
-          first=true
+          const pagesDir = 'pages';
+          const posts = [];
           
-          # pages 폴더의 모든 .md 파일 처리
-          for file in pages/*.md; do
-            if [ -f "$file" ]; then
-              # 파일명에서 slug 추출 (확장자 제거)
-              slug=$(basename "$file" .md)
-              
-              echo "Processing: $file (slug: $slug)"
-              
-              # Front Matter 추출
-              front_matter=$(sed -n '/^---$/,/^---$/p' "$file" | sed '1d;$d')
-              
-              # 각 필드 추출
-              title=$(echo "$front_matter" | grep "^title:" | sed "s/^title: *//;s/^['\"]//;s/['\"]$//")
-              date=$(echo "$front_matter" | grep "^date:" | sed "s/^date: *//")
-              category=$(echo "$front_matter" | grep "^category:" | sed "s/^category: *//;s/^['\"]//;s/['\"]$//")
-              description=$(echo "$front_matter" | grep "^description:" | sed "s/^description: *//;s/^['\"]//;s/['\"]$//")
-              
-              # 태그 추출 (배열 형태)
-              tags=$(echo "$front_matter" | grep "^tags:" | sed "s/^tags: *//")
-              
-              # 쉼표 추가 (첫 번째 항목 제외)
-              if [ "$first" = false ]; then
-                echo "," >> posts.json
-              fi
-              first=false
-              
-              # JSON 객체 생성
-              cat >> posts.json << EOF
-  {
-    "slug": "$slug",
-    "title": "$title",
-    "date": "$date",
-    "category": "$category",
-    "description": "$description",
-    "tags": $tags
-  }
-EOF
-            fi
-          done
+          // pages 폴더의 모든 .md 파일 읽기
+          const files = fs.readdirSync(pagesDir).filter(f => f.endsWith('.md'));
           
-          # JSON 배열 종료
-          echo "" >> posts.json
-          echo "]" >> posts.json
+          files.forEach(file => {
+            const filePath = path.join(pagesDir, file);
+            const content = fs.readFileSync(filePath, 'utf8');
+            
+            // Front Matter 추출
+            const frontMatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---/);
+            if (!frontMatterMatch) {
+              console.log(`Skipping ${file}: No front matter found`);
+              return;
+            }
+            
+            const frontMatter = frontMatterMatch[1];
+            const slug = path.basename(file, '.md');
+            
+            // 각 필드 파싱
+            const titleMatch = frontMatter.match(/^title:\s*['"]?(.+?)['"]?\s*$/m);
+            const dateMatch = frontMatter.match(/^date:\s*(.+?)\s*$/m);
+            const categoryMatch = frontMatter.match(/^category:\s*['"]?(.+?)['"]?\s*$/m);
+            const descriptionMatch = frontMatter.match(/^description:\s*['"]?(.+?)['"]?\s*$/m);
+            const tagsMatch = frontMatter.match(/^tags:\s*(\[.+?\])\s*$/m);
+            
+            const post = {
+              slug: slug,
+              title: titleMatch ? titleMatch[1] : '',
+              date: dateMatch ? dateMatch[1] : '',
+              category: categoryMatch ? categoryMatch[1] : '',
+              description: descriptionMatch ? descriptionMatch[1] : '',
+              tags: tagsMatch ? JSON.parse(tagsMatch[1]) : []
+            };
+            
+            posts.push(post);
+            console.log(`Processed: ${file} (slug: ${slug})`);
+          });
           
-          echo "posts.json generated successfully!"
-          cat posts.json
+          // 날짜순 정렬 (최신순)
+          posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+          
+          // posts.json 생성
+          fs.writeFileSync('posts.json', JSON.stringify(posts, null, 2));
+          console.log('posts.json generated successfully!');
+          console.log(JSON.stringify(posts, null, 2));
+          SCRIPT
 
       - name: Commit and push posts.json
         run: |
