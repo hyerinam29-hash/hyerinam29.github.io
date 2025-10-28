@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "trump-korea-visit-2025",
+    "title": "트럼프 전 대통령, 2025년 10월 한국 방문 예정",
+    "date": "2025-10-28",
+    "category": "News",
+    "description": "도널드 트럼프 전 미국 대통령이 2025년 10월 29일 한국을 방문하여 이재명 대통령과 정상회담을 가질 예정입니다.",
+    "tags": ["정치", "국제", "한미관계"]
+  },
+  {
+    "slug": "welcome",
+    "title": "블로그 개설을 환영합니다",
+    "date": "2025-01-27",
+    "category": "General",
+    "description": "새로운 블로그의 시작을 알리는 환영 메시지입니다.",
+    "tags": ["Welcome"]
+  },
+  {
+    "slug": "example",
+    "title": "GitHub Pages 블로그 시작하기",
+    "date": "2025-01-26",
+    "category": "Tutorial",
+    "description": "GitHub Pages를 이용한 정적 블로그 만들기 첫 번째 게시글입니다.",
+    "tags": ["GitHub Pages", "Blog", "Markdown"]
+  }
+]
