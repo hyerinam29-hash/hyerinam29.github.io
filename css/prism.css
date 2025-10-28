@@ -1,0 +1,179 @@
+/* Prism.js 다크/라이트 모드 지원 코드 하이라이팅 */
+
+/* 라이트 모드 (One Light 테마) */
+:root {
+  --prism-bg: #fafafa;
+  --prism-text: #383a42;
+  --prism-comment: #a0a1a7;
+  --prism-keyword: #a626a4;
+  --prism-function: #4078f2;
+  --prism-string: #50a14f;
+  --prism-number: #986801;
+  --prism-operator: #0184bc;
+  --prism-punctuation: #383a42;
+}
+
+/* 다크 모드 (One Dark 테마) */
+[data-theme='dark'] {
+  --prism-bg: #282c34;
+  --prism-text: #abb2bf;
+  --prism-comment: #5c6370;
+  --prism-keyword: #c678dd;
+  --prism-function: #61afef;
+  --prism-string: #98c379;
+  --prism-number: #d19a66;
+  --prism-operator: #56b6c2;
+  --prism-punctuation: #abb2bf;
+}
+
+/* 기본 스타일 */
+code[class*='language-'],
+pre[class*='language-'] {
+  color: var(--prism-text);
+  background: none;
+  font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 0.95em;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.6;
+  tab-size: 4;
+  hyphens: none;
+}
+
+pre[class*='language-'] {
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  overflow: auto;
+  border-radius: 8px;
+  background: var(--prism-bg);
+  border: 1px solid var(--border);
+}
+
+:not(pre) > code[class*='language-'],
+pre[class*='language-'] {
+  background: var(--prism-bg);
+}
+
+:not(pre) > code[class*='language-'] {
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+  white-space: normal;
+}
+
+/* 토큰 스타일 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--prism-comment);
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: var(--prism-punctuation);
+}
+
+.token.namespace {
+  opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: var(--prism-keyword);
+}
+
+.token.number {
+  color: var(--prism-number);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: var(--prism-string);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: var(--prism-operator);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: var(--prism-keyword);
+}
+
+.token.function,
+.token.class-name {
+  color: var(--prism-function);
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: var(--prism-operator);
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+/* 줄 번호 플러그인 지원 */
+pre[class*='language-'].line-numbers {
+  position: relative;
+  padding-left: 3.8em;
+  counter-reset: linenumber;
+}
+
+pre[class*='language-'].line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
+
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  font-size: 100%;
+  left: -3.8em;
+  width: 3em;
+  letter-spacing: -1px;
+  border-right: 1px solid var(--border);
+  user-select: none;
+}
+
+.line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+  content: counter(linenumber);
+  color: var(--prism-comment);
+  display: block;
+  padding-right: 0.8em;
+  text-align: right;
+}
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hyerinam29-hash's Blog</title>
+    <meta name="description" content="개발 블로그" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <h1 class="blog-title">
+          <a href="index.html">hyerinam29-hash's Blog</a>
+        </h1>
+        <button id="theme-toggle" class="theme-toggle" aria-label="다크모드 토글">
+          🌙
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="search-section">
+        <input
+          type="text"
+          id="search-input"
+          class="search-input"
+          placeholder="게시글 검색..."
+        />
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-group">
+          <h3>카테고리</h3>
+          <div id="category-filter" class="filter-tags"></div>
+        </div>
+        <div class="filter-group">
+          <h3>태그</h3>
+          <div id="tag-filter" class="filter-tags"></div>
+        </div>
+      </div>
+
+      <div id="posts-container" class="posts-container">
+        <p class="loading">게시글을 불러오는 중...</p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2025 hyerinam29-hash. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
+

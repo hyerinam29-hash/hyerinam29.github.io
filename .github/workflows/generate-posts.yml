@@ -1,0 +1,91 @@
+name: Generate Posts JSON
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'pages/**/*.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-posts-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate posts.json
+        run: |
+          echo "Generating posts.json from pages folder..."
+          
+          # JSON 배열 시작
+          echo "[" > posts.json
+          
+          first=true
+          
+          # pages 폴더의 모든 .md 파일 처리
+          for file in pages/*.md; do
+            if [ -f "$file" ]; then
+              # 파일명에서 slug 추출 (확장자 제거)
+              slug=$(basename "$file" .md)
+              
+              echo "Processing: $file (slug: $slug)"
+              
+              # Front Matter 추출
+              front_matter=$(sed -n '/^---$/,/^---$/p' "$file" | sed '1d;$d')
+              
+              # 각 필드 추출
+              title=$(echo "$front_matter" | grep "^title:" | sed "s/^title: *//;s/^['\"]//;s/['\"]$//")
+              date=$(echo "$front_matter" | grep "^date:" | sed "s/^date: *//")
+              category=$(echo "$front_matter" | grep "^category:" | sed "s/^category: *//;s/^['\"]//;s/['\"]$//")
+              description=$(echo "$front_matter" | grep "^description:" | sed "s/^description: *//;s/^['\"]//;s/['\"]$//")
+              
+              # 태그 추출 (배열 형태)
+              tags=$(echo "$front_matter" | grep "^tags:" | sed "s/^tags: *//")
+              
+              # 쉼표 추가 (첫 번째 항목 제외)
+              if [ "$first" = false ]; then
+                echo "," >> posts.json
+              fi
+              first=false
+              
+              # JSON 객체 생성
+              cat >> posts.json << EOF
+  {
+    "slug": "$slug",
+    "title": "$title",
+    "date": "$date",
+    "category": "$category",
+    "description": "$description",
+    "tags": $tags
+  }
+EOF
+            fi
+          done
+          
+          # JSON 배열 종료
+          echo "" >> posts.json
+          echo "]" >> posts.json
+          
+          echo "posts.json generated successfully!"
+          cat posts.json
+
+      - name: Commit and push posts.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # posts.json이 변경되었는지 확인
+          if git diff --quiet posts.json; then
+            echo "No changes to posts.json"
+          else
+            git add posts.json
+            git commit -m "chore: Update posts.json [skip ci]"
+            git push
+            echo "posts.json updated and pushed"
+          fi
+

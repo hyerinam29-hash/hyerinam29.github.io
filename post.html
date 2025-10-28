@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="post-title">Loading...</title>
+    <meta name="description" content="" id="post-description" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/prism.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <h1 class="blog-title">
+          <a href="index.html">hyerinam29-hash's Blog</a>
+        </h1>
+        <button id="theme-toggle" class="theme-toggle" aria-label="다크모드 토글">
+          🌙
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <article class="post">
+        <div class="post-header">
+          <h1 id="article-title">Loading...</h1>
+          <div class="post-meta">
+            <time id="article-date"></time>
+            <span id="article-category" class="category-badge"></span>
+          </div>
+          <div id="article-tags" class="post-tags"></div>
+        </div>
+        <div id="article-content" class="post-content">
+          <p>게시글을 불러오는 중...</p>
+        </div>
+      </article>
+
+      <div class="back-to-list">
+        <a href="index.html">← 목록으로 돌아가기</a>
+      </div>
+
+      <!-- Giscus 댓글 -->
+      <div id="giscus-container" class="giscus-container"></div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2025 hyerinam29-hash. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/post-loader.js"></script>
+  </body>
+</html>
+
