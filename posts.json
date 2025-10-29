@@ -1,5 +1,13 @@
 [
   {
+    "slug": "cursor-news-oct-2025",
+    "title": "2025년 10월 Cursor IDE 이슈 브리핑",
+    "date": "2025-10-29",
+    "category": "News",
+    "description": "Cursor IDE 보안 대응, 1.7 업그레이드, 생산성 리포트, 보안 정책 변경을 정리했습니다.",
+    "tags": ["Cursor IDE", "보안", "생산성", "업데이트"]
+  },
+  {
     "slug": "ai-latest-news-2025",
     "title": "2025년 10월, AI 뉴스 하이라이트",
     "date": "2025-10-29",
