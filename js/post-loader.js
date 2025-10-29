@@ -157,10 +157,10 @@
 
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
-    script.setAttribute('data-repo', 'hyerinam29-hash/hyerinam29-hash.github.io');
-    script.setAttribute('data-repo-id', 'YOUR_REPO_ID'); // TODO: Giscus 설정 후 변경
+    script.setAttribute('data-repo', 'hyerinam29-hash/hyerinam29.github.io');
+    script.setAttribute('data-repo-id', 'R_kgDONjfx3g'); // Giscus 설정에서 받은 값
     script.setAttribute('data-category', 'General');
-    script.setAttribute('data-category-id', 'YOUR_CATEGORY_ID'); // TODO: Giscus 설정 후 변경
+    script.setAttribute('data-category-id', 'DIC_kwDONjfx3s4CmAnL'); // Giscus 설정에서 받은 값
     script.setAttribute('data-mapping', 'pathname');
     script.setAttribute('data-strict', '0');
     script.setAttribute('data-reactions-enabled', '1');
