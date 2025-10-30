@@ -160,7 +160,7 @@
     script.setAttribute('data-repo', 'hyerinam29-hash/hyerinam29.github.io');
     script.setAttribute('data-repo-id', 'R_kgDOQKgWAw'); // GitHub API에서 조회한 실제 repo node_id
     script.setAttribute('data-category', 'General');
-    script.setAttribute('data-category-id', 'YOUR_CATEGORY_ID'); // Discussions 활성화 후 실제 category ID로 교체하세요
+    script.setAttribute('data-category-id', 'DIC_kwDOQKgWA84CxMbY'); // Discussions 활성화 후 실제 category ID로 교체하세요
     script.setAttribute('data-mapping', 'pathname');
     script.setAttribute('data-strict', '0');
     script.setAttribute('data-reactions-enabled', '1');
